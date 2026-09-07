@@ -1,0 +1,47 @@
+{
+  "expo": {
+    "name": "Mela Seva",
+    "slug": "mela-seva",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1d4ed8"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.melaseva.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera to scan QR codes and capture complaint photos.",
+        "NSLocationWhenInUseUsageDescription": "This app uses your location to show nearby facilities and navigate to complaint locations.",
+        "NSPhotoLibraryUsageDescription": "This app accesses your photos to attach images to complaints."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#1d4ed8"
+      },
+      "package": "com.melaseva.app",
+      "permissions": [
+        "CAMERA",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-camera",
+      "expo-location",
+      "expo-barcode-scanner"
+    ]
+  }
+}
