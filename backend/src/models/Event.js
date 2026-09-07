@@ -43,7 +43,6 @@ const eventSchema = new mongoose.Schema({
     type: {
       type: String,
       enum: ['Polygon', 'MultiPolygon'],
-      default: 'Polygon',
     },
     coordinates: {
       type: [[[Number]]],
@@ -86,7 +85,7 @@ const eventSchema = new mongoose.Schema({
 });
 
 // Geospatial index for boundary
-eventSchema.index({ boundary: '2dsphere' });
+eventSchema.index({ boundary: '2dsphere' }, { sparse: true });
 eventSchema.index({ code: 1 });
 eventSchema.index({ status: 1 });
 eventSchema.index({ startDate: 1, endDate: 1 });

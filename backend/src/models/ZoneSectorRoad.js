@@ -21,7 +21,6 @@ const zoneSchema = new mongoose.Schema({
     type: {
       type: String,
       enum: ['Polygon', 'MultiPolygon'],
-      default: 'Polygon',
     },
     coordinates: {
       type: [[[Number]]],
@@ -51,7 +50,7 @@ const zoneSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 zoneSchema.index({ event: 1, code: 1 }, { unique: true });
-zoneSchema.index({ boundary: '2dsphere' });
+zoneSchema.index({ boundary: '2dsphere' }, { sparse: true });
 
 // Sector Schema
 const sectorSchema = new mongoose.Schema({
@@ -78,7 +77,6 @@ const sectorSchema = new mongoose.Schema({
     type: {
       type: String,
       enum: ['Polygon', 'MultiPolygon'],
-      default: 'Polygon',
     },
     coordinates: {
       type: [[[Number]]],
@@ -108,7 +106,7 @@ const sectorSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 sectorSchema.index({ event: 1, code: 1 }, { unique: true });
-sectorSchema.index({ boundary: '2dsphere' });
+sectorSchema.index({ boundary: '2dsphere' }, { sparse: true });
 sectorSchema.index({ event: 1, zone: 1 });
 
 // Road Schema
@@ -140,7 +138,6 @@ const roadSchema = new mongoose.Schema({
     type: {
       type: String,
       enum: ['LineString'],
-      default: 'LineString',
     },
     coordinates: {
       type: [[Number]],
@@ -163,7 +160,7 @@ const roadSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 roadSchema.index({ event: 1, code: 1 }, { unique: true });
-roadSchema.index({ path: '2dsphere' });
+roadSchema.index({ path: '2dsphere' }, { sparse: true });
 roadSchema.index({ event: 1, sector: 1 });
 
 const Zone = mongoose.model('Zone', zoneSchema);
