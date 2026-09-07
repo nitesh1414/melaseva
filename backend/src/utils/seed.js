@@ -41,7 +41,7 @@ const seed = async () => {
       name: 'Super Admin',
       email: 'admin@melaseva.com',
       mobile: '9999999999',
-      password: await bcrypt.hash('Admin@123', 12),
+      password: 'Admin@123',
       role: ROLES.SUPER_ADMIN,
       status: 'ACTIVE',
     });
@@ -179,7 +179,7 @@ const seed = async () => {
         name: u.name,
         email: `${u.name.toLowerCase().replace(' ', '.')}@melaseva.com`,
         mobile: `9876543${String(200 + i).padStart(3, '0')}`,
-        password: await bcrypt.hash('User@123', 12),
+        password: 'User@123',
         role: u.role,
         department: u.dept ? u.dept._id : null,
         event: event._id,
