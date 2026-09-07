@@ -94,6 +94,23 @@ app.use('/api/qr-codes', require('./routes/qrCodeRoutes'));
 app.use('/api/feedback', require('./routes/feedbackRoutes'));
 app.use('/api/masters', require('./routes/masterRoutes'));
 
+// Root endpoint
+app.get('/', (req, res) => {
+  res.json({
+    success: true,
+    message: 'Mela Seva API is running',
+    version: '1.0.0',
+    endpoints: {
+      health: '/api/health',
+      login: 'POST /api/auth/login',
+      complaints: '/api/complaints',
+      assets: '/api/assets',
+      facilities: '/api/facilities',
+    },
+    frontend: 'http://localhost:5173',
+  });
+});
+
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({
