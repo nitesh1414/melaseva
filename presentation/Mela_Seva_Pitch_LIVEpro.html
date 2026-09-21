@@ -1,0 +1,1943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LIVEpro Software Solutions | Mela Seva - Project Pitch</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap');
+    
+    :root {
+      --primary: #1a365d;
+      --primary-light: #2563eb;
+      --primary-dark: #0f172a;
+      --accent: #f97316;
+      --accent-light: #fb923c;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-300: #cbd5e1;
+      --gray-600: #475569;
+      --gray-700: #334155;
+      --gray-800: #1e293b;
+      --gray-900: #0f172a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    @page {
+      size: 1280px 720px;
+      margin: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--gray-900);
+      color: var(--gray-800);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .slide {
+      width: 1280px;
+      height: 720px;
+      position: relative;
+      overflow: hidden;
+      page-break-after: always;
+      margin: 0 auto 20px;
+      background: white;
+    }
+
+    @media print {
+      body { background: white; }
+      .slide { margin: 0; box-shadow: none; }
+      .no-print { display: none !important; }
+    }
+
+    /* Navigation */
+    .nav-controls {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      gap: 8px;
+    }
+    .nav-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .nav-btn:hover { background: var(--primary-light); }
+    .slide-counter {
+      position: fixed;
+      bottom: 24px;
+      left: 20px;
+      color: white;
+      font-size: 14px;
+      z-index: 1000;
+      background: rgba(0,0,0,0.7);
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+
+    /* Slide Styles */
+    .slide-title-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+
+    .slide-footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40px;
+      background: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 30px;
+      color: white;
+      font-size: 11px;
+    }
+
+    .slide-footer .company { font-weight: 600; color: var(--accent); }
+    .slide-footer .confidential { opacity: 0.7; }
+
+    /* Cover Slide */
+    .slide-cover {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, #1e40af 100%);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 60px;
+    }
+    .slide-cover .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .slide-cover .logo-icon {
+      width: 70px;
+      height: 70px;
+      background: var(--accent);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 800;
+      color: white;
+    }
+    .slide-cover .company-name {
+      font-size: 28px;
+      font-weight: 700;
+      font-family: 'Poppins', sans-serif;
+    }
+    .slide-cover .company-location {
+      font-size: 14px;
+      opacity: 0.8;
+      margin-top: 4px;
+    }
+    .slide-cover h1 {
+      font-size: 52px;
+      font-weight: 800;
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      background: linear-gradient(90deg, #ffffff, #e0e7ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .slide-cover .subtitle {
+      font-size: 20px;
+      opacity: 0.9;
+      margin-bottom: 40px;
+      max-width: 800px;
+      line-height: 1.5;
+    }
+    .slide-cover .meta {
+      display: flex;
+      gap: 30px;
+      font-size: 14px;
+      opacity: 0.7;
+    }
+    .slide-cover .accent-line {
+      width: 100px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin: 20px auto;
+    }
+
+    /* Section Headers */
+    .section-header {
+      padding: 40px 60px 0;
+    }
+    .section-header .tag {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    .section-header h2 {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--primary-dark);
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.2;
+    }
+    .section-header .divider {
+      width: 60px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-top: 12px;
+    }
+
+    /* Content Grids */
+    .content-area {
+      padding: 24px 60px;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+    /* Cards */
+    .card {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 24px;
+      transition: all 0.2s;
+    }
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+    .card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+    }
+    .card p {
+      font-size: 13px;
+      color: var(--gray-600);
+      line-height: 1.5;
+    }
+
+    /* Feature List */
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .feature-bullet {
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .feature-text h4 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--primary-dark);
+      margin-bottom: 2px;
+    }
+    .feature-text p {
+      font-size: 12px;
+      color: var(--gray-600);
+      line-height: 1.4;
+    }
+
+    /* Image containers */
+    .img-container {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .img-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Data Flow */
+    .flow-step {
+      text-align: center;
+      position: relative;
+    }
+    .flow-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+      margin: 0 auto 10px;
+    }
+    .flow-step h4 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--primary-dark);
+      margin-bottom: 4px;
+    }
+    .flow-step p {
+      font-size: 11px;
+      color: var(--gray-600);
+    }
+    .flow-arrow {
+      position: absolute;
+      right: -20px;
+      top: 16px;
+      font-size: 20px;
+      color: var(--accent);
+    }
+
+    /* Tables */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    .data-table th {
+      background: var(--primary);
+      color: white;
+      padding: 10px 12px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .data-table td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .data-table tr:nth-child(even) { background: var(--gray-50); }
+
+    /* Do's and Don'ts */
+    .dos-donts { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .dos-section, .donts-section {
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .dos-section {
+      background: #ecfdf5;
+      border: 2px solid #a7f3d0;
+    }
+    .donts-section {
+      background: #fef2f2;
+      border: 2px solid #fecaca;
+    }
+    .dos-section h3 { color: #065f46; font-size: 18px; margin-bottom: 16px; }
+    .donts-section h3 { color: #991b1b; font-size: 18px; margin-bottom: 16px; }
+    .do-item, .dont-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    .do-item::before { content: "✅"; font-size: 14px; }
+    .dont-item::before { content: "❌"; font-size: 14px; }
+
+    /* Stats */
+    .stat-card {
+      text-align: center;
+      padding: 20px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+    }
+    .stat-number {
+      font-size: 36px;
+      font-weight: 800;
+      font-family: 'Poppins', sans-serif;
+    }
+    .stat-label {
+      font-size: 12px;
+      opacity: 0.9;
+      margin-top: 4px;
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--primary-light);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -24px;
+      top: 4px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 3px solid var(--primary-light);
+    }
+    .timeline-item h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+    .timeline-item .period {
+      font-size: 11px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .timeline-item p {
+      font-size: 12px;
+      color: var(--gray-600);
+      margin-top: 2px;
+    }
+
+    /* QR Process Steps */
+    .qr-process {
+      display: flex;
+      gap: 12px;
+      align-items: stretch;
+    }
+    .qr-step {
+      flex: 1;
+      background: white;
+      border: 2px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      position: relative;
+    }
+    .qr-step .step-num {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .qr-step .step-icon { font-size: 28px; margin: 8px 0; }
+    .qr-step h4 { font-size: 12px; font-weight: 600; color: var(--primary-dark); }
+    .qr-step p { font-size: 10px; color: var(--gray-600); margin-top: 4px; }
+
+    /* Tech Stack */
+    .tech-badge {
+      display: inline-block;
+      background: var(--gray-100);
+      border: 1px solid var(--gray-200);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      margin: 3px;
+      color: var(--gray-700);
+    }
+    .tech-badge.highlight {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    /* Slide-specific backgrounds */
+    .slide-dark {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: white;
+    }
+    .slide-dark .section-header h2 { color: white; }
+    .slide-dark .card { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+    .slide-dark .card h3 { color: white; }
+    .slide-dark .card p { color: rgba(255,255,255,0.8); }
+    .slide-dark .feature-text h4 { color: white; }
+    .slide-dark .feature-text p { color: rgba(255,255,255,0.7); }
+
+    .slide-accent {
+      background: linear-gradient(135deg, var(--accent), #ea580c);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="slide-counter no-print">Slide <span id="current">1</span> / <span id="total">20</span></div>
+  <div class="nav-controls no-print">
+    <button class="nav-btn" onclick="prevSlide()">◀ Prev</button>
+    <button class="nav-btn" onclick="nextSlide()">Next ▶</button>
+    <button class="nav-btn" onclick="window.print()">📄 Save PDF</button>
+  </div>
+
+  <!-- SLIDE 1: COVER -->
+  <div class="slide slide-cover" id="slide-1">
+    <div class="logo-area">
+      <div class="logo-icon">L</div>
+      <div>
+        <div class="company-name">LIVEpro Software Solutions</div>
+        <div class="company-location">Raghuji Nagar, Nagpur – 440024</div>
+      </div>
+    </div>
+    <h1>MELA SEVA<br>Smart Event Management Platform</h1>
+    <div class="accent-line"></div>
+    <div class="subtitle">
+      Geo-Tagged Asset Management • QR-Based Complaint System • GIS-Powered Smart Navigation<br>
+      <em>A comprehensive digital solution for large-scale public events & temporary infrastructure</em>
+    </div>
+    <div class="meta">
+      <span>📅 Project Pitch Presentation</span>
+      <span>🔒 Confidential</span>
+      <span>📍 Nagpur, Maharashtra</span>
+    </div>
+    <div style="position:absolute;bottom:50px;left:0;right:0;text-align:center;font-size:12px;opacity:0.5;">
+      © 2026 LIVEpro Software Solutions. All Rights Reserved.
+    </div>
+  </div>
+
+  <!-- SLIDE 2: THE CHALLENGE -->
+  <div class="slide" id="slide-2">
+    <div class="slide-title-bar"></div>
+    <div class="section-header">
+      <div class="tag">The Challenge</div>
+      <h2>Why Mela Management Needs Digital Transformation</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="content-area">
+      <div class="grid-2">
+        <div>
+          <div style="margin-bottom:16px;">
+            <img src="images/mela-aerial.jpg" style="width:100%;height:240px;object-fit:cover;border-radius:12px;" />
+          </div>
+          <p style="font-size:14px;color:var(--gray-600);line-height:1.6;">
+            Large-scale events like Kumbh Mela, religious fairs, and exhibitions manage <strong>thousands of temporary electrical assets</strong>, 
+            serve <strong>lakhs of visitors daily</strong>, and require <strong>24×7 monitoring</strong> — yet most operations still rely on manual processes.
+          </p>
+        </div>
+        <div>
+          <div class="card" style="margin-bottom:12px;border-left:4px solid var(--danger);">
+            <h3 style="color:var(--danger);">⚠️ Current Pain Points</h3>
+            <div style="font-size:13px;color:var(--gray-700);line-height:1.8;">
+              <div>• No digital record of temporary assets (poles, wires, substations)</div>
+              <div>• Complaints reported verbally — no tracking or accountability</div>
+              <div>• No real-time visibility into complaint resolution status</div>
+              <div>• Citizens struggle to locate nearest hospitals, police, toilets</div>
+              <div>• SLA breaches go unnoticed until escalation</div>
+              <div>• No data for post-event analysis & improvement</div>
+            </div>
+          </div>
+          <div class="grid-2" style="gap:12px;">
+            <div class="stat-card">
+              <div class="stat-number">5000+</div>
+              <div class="stat-label">Temporary Poles per Mela</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">10L+</div>
+              <div class="stat-label">Daily Visitors</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="company">LIVEpro Software Solutions</span>
+      <span class="confidential">Confidential | Mela Seva – Project Pitch</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: SOLUTION OVERVIEW -->
+  <div class="slide" id="slide-3">
+    <div class="slide-title-bar"></div>
+    <div class="section-header">
+      <div class="tag">Our Solution</div>
+      <h2>Mela Seva — Complete Digital Platform</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="content-area">
+      <p style="font-size:15px;color:var(--gray-600);margin-bottom:20px;line-height:1.5;">
+        A <strong>unified, scalable platform</strong> connecting citizens, field staff, control room, and administration through 
+        QR codes, GIS mapping, and real-time communication — deployable for any large public event.
+      </p>
+      <div class="grid-4">
+        <div class="card" style="text-align:center;">
+          <div class="card-icon" style="background:#dbeafe;margin:0 auto 12px;">📱</div>
+          <h3>Citizen App</h3>
+          <p>Scan QR → Report issues → Find facilities → Navigate — no login needed</p>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div class="card-icon" style="background:#fef3c7;margin:0 auto 12px;">🎯</div>
+          <h3>Control Room</h3>
+          <p>Real-time dashboard → Assign complaints → Monitor SLA → GIS maps</p>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div class="card-icon" style="background:#d1fae5;margin:0 auto 12px;">👷</div>
+          <h3>Field Staff App</h3>
+          <p>Receive assignments → Navigate → Resolve → Upload proof → Close</p>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div class="card-icon" style="background:#ede9fe;margin:0 auto 12px;">📊</div>
+          <h3>Admin Portal</h3>
+          <p>Asset management → User control → Reports → Configuration</p>
+        </div>
+      </div>
+      <div style="margin-top:20px;background:var(--gray-50);border-radius:12px;padding:20px;border:1px solid var(--gray-200);">
+        <div style="display:flex;justify-content:space-around;text-align:center;">
+          <div><strong style="font-size:20px;color:var(--primary);">12</strong><br><span style="font-size:12px;color:var(--gray-600);">Core Modules</span></div>
+          <div><strong style="font-size:20px;color:var(--primary);">4</strong><br><span style="font-size:12px;color:var(--gray-600);">Platforms (Web + Mobile)</span></div>
+          <div><strong style="font-size:20px;color:var(--primary);">8</strong><br><span style="font-size:12px;color:var(--gray-600);">User Roles</span></div>
+          <div><strong style="font-size:20px;color:var(--primary);">3</strong><br><span style="font-size:12px;color:var(--gray-600);">Languages (EN/HI/MR)</span></div>
+          <div><strong style="font-size:20px;color:var(--primary);">24×7</strong><br><span style="font-size:12px;color:var(--gray-600);">Monitoring</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="company">LIVEpro Software Solutions</span>
+      <span class="confidential">Confidential | Mela Seva – Project Pitch</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: KEY FEATURES -->
+  <div class="slide" id="slide-4">
+    <div class="slide-title-bar"></div>
+    <div class="section-header">
+      <div class="tag">Key Features</div>
+      <h2>Comprehensive Feature Suite</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="content-area">
+      <div class="grid-3">
+        <div>
+          <div class="feature-item">
+            <div class="feature-bullet">1</div>
+            <div class="feature-text">
+              <h4>GIS-Based Asset Survey</h4>
+              <p>GPS-tagged mapping of every pole, wire, substation with photographs</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-bullet">2</div>
+            <div class="feature-text">
+              <h4>QR Code on Every Asset</h4>
+              <p>Unique QR stickers with pole number, road, sector — printed & applied</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-bullet">3</div>
+            <div class="feature-text">
+              <h4>Public Complaint Registration</h4>
+              <p>Citizens scan QR → auto-fill location → submit complaint in 30 seconds</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-bullet">4</div>
+            <div class="feature-text">
+              <h4>Real-Time Control Room</h4>
+              <p>Live dashboard with complaint feed, GIS map, and instant assignment</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="feature-item">
+            <div class="feature-bullet">5</div>
+            <div class="feature-text">
+              <h4>Smart Navigation Map</h4>
+              <p>Find hospitals, police, toilets, parking, ghats, shelters — nearby</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-bullet">6</div>
+            <div class="feature-text">
+              <h4>SLA & Auto-Escalation</h4>
+              <p>Timer-based SLA with automatic warning and escalation workflow</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-bullet">7</div>
+            <div class="feature-text">
+              <h4>SMS Notifications</h4>
+              <p>Automatic SMS at each stage — registration, assignment, resolution</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-bullet">8</div>
+            <div class="feature-text">
+              <h4>Field Officer Mobile App</h4>
+              <p>Offline-capable app for complaint resolution with GPS & photo proof</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="feature-item">
+            <div class="feature-bullet">9</div>
+            <div class="feature-text">
+              <h4>MIS & Reporting</h4>
+              <p>Department-wise, officer-wise, area-wise reports with Excel/PDF export</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-bullet">10</div>
+            <div class="feature-text">
+              <h4>Multi-Event Scalable</h4>
+              <p>Same platform for Kumbh, Mela, fair, exhibition — configurable per event</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-bullet">11</div>
+            <div class="feature-text">
+              <h4>Multilingual Support</h4>
+              <p>English, Hindi, Marathi — all UI, SMS templates, and reports</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-bullet">12</div>
+            <div class="feature-text">
+              <h4>Complete Audit Trail</h4>
+              <p>Every action logged — who did what, when, from where</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="company">LIVEpro Software Solutions</span>
+      <span class="confidential">Confidential | Mela Seva – Project Pitch</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: QR CODE WORKFLOW -->
+  <div class="slide" id="slide-5">
+    <div class="slide-title-bar"></div>
+    <div class="section-header">
+      <div class="tag">QR Code System</div>
+      <h2>End-to-End QR Code Lifecycle</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="content-area">
+      <p style="font-size:13px;color:var(--gray-600);margin-bottom:16px;">
+        Each temporary electrical pole/asset gets a unique, weatherproof QR sticker enabling instant citizen interaction.
+      </p>
+      <div class="qr-process" style="margin-bottom:24px;">
+        <div class="qr-step">
+          <div class="step-num">1</div>
+          <div class="step-icon">📋</div>
+          <h4>GIS Survey</h4>
+          <p>Surveyor captures GPS, photo of each pole during field survey</p>
+        </div>
+        <div class="qr-step">
+          <div class="step-num">2</div>
+          <div class="step-icon">🔢</div>
+          <h4>Generate QR</h4>
+          <p>System generates unique QR code linked to asset ID & GPS</p>
+        </div>
+        <div class="qr-step">
+          <div class="step-num">3</div>
+          <div class="step-icon">🖨️</div>
+          <h4>Print Labels</h4>
+          <p>Weatherproof stickers with QR, pole#, road, sector, event logo</p>
+        </div>
+        <div class="qr-step">
+          <div class="step-num">4</div>
+          <div class="step-icon">📌</div>
+          <h4>Apply to Pole</h4>
+          <p>Sticker applied at height on pole — visible & scannable</p>
+        </div>
+        <div class="qr-step">
+          <div class="step-num">5</div>
+          <div class="step-icon">📱</div>
+          <h4>Citizen Scans</h4>
+          <p>Any phone camera opens complaint form with pre-filled data</p>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="card" style="padding:16px;">
+          <h3 style="font-size:14px;margin-bottom:10px;">📄 QR Label Format</h3>
+          <div style="background:white;border:2px dashed var(--gray-300);border-radius:8px;padding:16px;text-align:center;">
+            <div style="font-size:10px;font-weight:700;color:var(--primary);letter-spacing:2px;">MELA SEVA 2026</div>
+            <div style="margin:8px 0;">
+              <div style="width:80px;height:80px;background:var(--gray-900);margin:0 auto;border-radius:4px;display:flex;align-items:center;justify-content:center;">
+                <span style="color:white;font-size:8px;">QR CODE</span>
+              </div>
+            </div>
+            <div style="font-size:11px;font-weight:600;">Pole No: P-00125</div>
+            <div style="font-size:10px;color:var(--gray-600);">Road: Main Road | Sector: 05</div>
+            <div style="font-size:9px;color:var(--accent);font-weight:600;margin-top:6px;">SCAN FOR HELP</div>
+          </div>
+        </div>
+        <div class="card" style="padding:16px;">
+          <h3 style="font-size:14px;margin-bottom:10px;">📱 What Happens When Scanned</h3>
+          <div style="font-size:12px;color:var(--gray-700);line-height:1.8;">
+            <div>✅ <strong>Asset identified</strong> — pole number, road, sector auto-loaded</div>
+            <div>✅ <strong>GPS location</strong> — captured automatically</div>
+            <div>✅ <strong>Complaint form</strong> — opens in browser (no app needed)</div>
+            <div>✅ <strong>Pre-filled data</strong> — citizen only enters name, mobile, issue</div>
+            <div>✅ <strong>Nearby facilities</strong> — shows hospitals, police, toilets</div>
+            <div>✅ <strong>Navigation</strong> — get directions to any facility</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="company">LIVEpro Software Solutions</span>
+      <span class="confidential">Confidential | Mela Seva – Project Pitch</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: QR PRINTING & APPLICATION -->
+  <div class="slide" id="slide-6">
+    <div class="slide-title-bar"></div>
+    <div class="section-header">
+      <div class="tag">Field Operations</div>
+      <h2>QR Printing, Application & Field Process</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="content-area">
+      <div class="grid-2">
+        <div>
+          <img src="images/qr-printing.jpg" style="width:100%;height:200px;object-fit:cover;border-radius:12px;margin-bottom:16px;" />
+          <div class="card" style="padding:16px;">
+            <h3 style="font-size:14px;margin-bottom:8px;">🖨️ Printing Specifications</h3>
+            <table class="data-table" style="font-size:11px;">
+              <tr><td><strong>Material</strong></td><td>Weatherproof vinyl / PET sticker</td></tr>
+              <tr><td><strong>Size</strong></td><td>50mm × 50mm (standard) / Custom</td></tr>
+              <tr><td><strong>Print Format</strong></td><td>A4 sheet (20 labels) / Roll printer</td></tr>
+              <tr><td><strong>Durability</strong></td><td>UV resistant, waterproof, 6+ months</td></tr>
+              <tr><td><strong>QR Error Correction</strong></td><td>Level H (30% damage tolerant)</td></tr>
+              <tr><td><strong>Content</strong></td><td>Event logo, Pole#, Road, Sector, QR</td></tr>
+            </table>
+          </div>
+        </div>
+        <div>
+          <img src="images/qr-pole-application.jpg" style="width:100%;height:200px;object-fit:cover;border-radius:12px;margin-bottom:16px;" />
+          <div class="card" style="padding:16px;">
+            <h3 style="font-size:14px;margin-bottom:8px;">📌 Application Process</h3>
+            <div style="font-size:12px;color:var(--gray-700);line-height:1.6;">
+              <div class="feature-item" style="margin-bottom:8px;">
+                <div class="feature-bullet" style="width:22px;height:22px;min-width:22px;font-size:11px;">1</div>
+                <div><strong>Survey Team</strong> maps pole with GPS during initial survey</div>
+              </div>
+              <div class="feature-item" style="margin-bottom:8px;">
+                <div class="feature-bullet" style="width:22px;height:22px;min-width:22px;font-size:11px;">2</div>
+                <div><strong>Admin</strong> generates & prints QR labels in bulk from portal</div>
+              </div>
+              <div class="feature-item" style="margin-bottom:8px;">
+                <div class="feature-bullet" style="width:22px;height:22px;min-width:22px;font-size:11px;">3</div>
+                <div><strong>Field team</strong> applies sticker at ~6ft height on pole</div>
+              </div>
+              <div class="feature-item" style="margin-bottom:8px;">
+                <div class="feature-bullet" style="width:22px;height:22px;min-width:22px;font-size:11px;">4</div>
+                <div><strong>Verification</strong> — scan test to confirm QR works correctly</div>
+              </div>
+              <div class="feature-item" style="margin-bottom:0;">
+                <div class="feature-bullet" style="width:22px;height:22px;min-width:22px;font-size:11px;">5</div>
+                <div><strong>Status updated</strong> to "Verified" in system with photo proof</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="company">LIVEpro Software Solutions</span>
+      <span class="confidential">Confidential | Mela Seva – Project Pitch</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: GIS TAGGING -->
+  <div class="slide" id="slide-7">
+    <div class="slide-title-bar"></div>
+    <div class="section-header">
+      <div class="tag">GIS & Mapping</div>
+      <h2>GIS Tagging — Complete Geographic Intelligence</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="content-area">
+      <div class="grid-2">
+        <div>
+          <img src="images/gis-mapping.jpg" style="width:100%;height:260px;object-fit:cover;border-radius:12px;margin-bottom:16px;" />
+          <div style="display:flex;gap:8px;">
+            <div style="flex:1;background:var(--primary);color:white;border-radius:8px;padding:12px;text-align:center;">
+              <div style="font-size:20px;font-weight:800;">2dsphere</div>
+              <div style="font-size:10px;opacity:0.8;">MongoDB Geo Index</div>
+            </div>
+            <div style="flex:1;background:var(--accent);color:white;border-radius:8px;padding:12px;text-align:center;">
+              <div style="font-size:20px;font-weight:800;">< 5m</div>
+              <div style="font-size:10px;opacity:0.8;">GPS Accuracy</div>
+            </div>
+            <div style="flex:1;background:var(--success);color:white;border-radius:8px;padding:12px;text-align:center;">
+              <div style="font-size:20px;font-weight:800;">Real-time</div>
+              <div style="font-size:10px;opacity:0.8;">Live Map Updates</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3 style="font-size:16px;font-weight:700;color:var(--primary-dark);margin-bottom:12px;">What Gets Mapped</h3>
+          <div style="font-size:13px;color:var(--gray-700);line-height:1.8;margin-bottom:16px;">
+            <div>🔌 <strong>Electrical Poles</strong> — every temporary pole with GPS + photo</div>
+            <div>⚡ <strong>Electrical Lines</strong> — wire routes between poles mapped</div>
+            <div>🏭 <strong>Substations & Transformers</strong> — location + capacity</div>
+            <div>🏥 <strong>Public Facilities</strong> — hospitals, police, toilets, parking</div>
+            <div>🚨 <strong>Complaint Locations</strong> — every complaint geo-tagged</div>
+            <div>🗺️ <strong>Event Boundary</strong> — complete Mela area demarcation</div>
+          </div>
+          <h3 style="font-size:16px;font-weight:700;color:var(--primary-dark);margin-bottom:8px;">GIS Capabilities</h3>
+          <div style="font-size:12px;color:var(--gray-600);line-height:1.8;">
+            <div>✅ Nearby asset search within radius</div>
+            <div>✅ Assets inside event boundary polygon</div>
+            <div>✅ Heatmap visualization for complaint density</div>
+            <div>✅ Layer-based map (toggle assets/facilities/complaints)</div>
+            <div>✅ Route navigation integration with Google Maps</div>
+            <div>✅ Sector-wise and zone-wise spatial analysis</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="company">LIVEpro Software Solutions</span>
+      <span class="confidential">Confidential | Mela Seva – Project Pitch</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: COMPLETE DATA FLOW -->
+  <div class="slide slide-dark" id="slide-8">
+    <div class="section-header">
+      <div class="tag">Data Flow</div>
+      <h2>Complete Complaint Lifecycle — End to End</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="content-area">
+      <div style="display:flex;gap:8px;margin-bottom:20px;">
+        <div style="flex:1;text-align:center;background:rgba(255,255,255,0.1);border-radius:10px;padding:14px 8px;position:relative;">
+          <div style="font-size:24px;">📱</div>
+          <div style="font-size:11px;font-weight:600;margin-top:4px;">Citizen Scans QR</div>
+          <div style="font-size:9px;opacity:0.7;margin-top:2px;">Asset + GPS auto-loaded</div>
+          <div style="position:absolute;right:-12px;top:50%;color:var(--accent);font-size:16px;">→</div>
+        </div>
+        <div style="flex:1;text-align:center;background:rgba(255,255,255,0.1);border-radius:10px;padding:14px 8px;position:relative;">
+          <div style="font-size:24px;">📝</div>
+          <div style="font-size:11px;font-weight:600;margin-top:4px;">Submits Complaint</div>
+          <div style="font-size:9px;opacity:0.7;margin-top:2px;">Name, mobile, description</div>
+          <div style="position:absolute;right:-12px;top:50%;color:var(--accent);font-size:16px;">→</div>
+        </div>
+        <div style="flex:1;text-align:center;background:rgba(255,255,255,0.1);border-radius:10px;padding:14px 8px;position:relative;">
+          <div style="font-size:24px;">🔔</div>
+          <div style="font-size:11px;font-weight:600;margin-top:4px;">SMS Confirmation</div>
+          <div style="font-size:9px;opacity:0.7;margin-top:2px;">Complaint # sent to citizen</div>
+          <div style="position:absolute;right:-12px;top:50%;color:var(--accent);font-size:16px;">→</div>
+        </div>
+        <div style="flex:1;text-align:center;background:rgba(255,255,255,0.1);border-radius:10px;padding:14px 8px;position:relative;">
+          <div style="font-size:24px;">🖥️</div>
+          <div style="font-size:11px;font-weight:600;margin-top:4px;">Control Room Alert</div>
+          <div style="font-size:9px;opacity:0.7;margin-top:2px;">Real-time dashboard update</div>
+          <div style="position:absolute;right:-12px;top:50%;color:var(--accent);font-size:16px;">→</div>
+        </div>
+        <div style="flex:1;text-align:center;background:rgba(255,255,255,0.1);border-radius:10px;padding:14px 8px;position:relative;">
+          <div style="font-size:24px;">👤</div>
+          <div style="font-size:11px;font-weight:600;margin-top:4px;">Assign to Officer</div>
+          <div style="font-size:9px;opacity:0.7;margin-top:2px;">Dept + officer selected</div>
+          <div style="position:absolute;right:-12px;top:50%;color:var(--accent);font-size:16px;">→</div>
+        </div>
+        <div style="flex:1;text-align:center;background:rgba(255,255,255,0.1);border-radius:10px;padding:14px 8px;">
+          <div style="font-size:24px;">✅</div>
+          <div style="font-size:11px;font-weight:600;margin-top:4px;">Resolve & Close</div>
+          <div style="font-size:9px;opacity:0.7;margin-top:2px;">Photo proof + SMS to citizen</div>
+        </div>
+      </div>
+      <div class="grid-2" style="gap:16px;">
+        <div class="card">
+          <h3 style="font-size:14px;margin-bottom:10px;">📊 Status Workflow</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            <span style="background:#3b82f6;color:white;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:600;">NEW</span>
+            <span style="color:var(--accent);">→</span>
+            <span style="background:#6366f1;color:white;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:600;">RECEIVED</span>
+            <span style="color:var(--accent);">→</span>
+            <span style="background:#f59e0b;color:white;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:600;">ASSIGNED</span>
+            <span style="color:var(--accent);">→</span>
+            <span style="background:#f97316;color:white;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:600;">IN PROGRESS</span>
+            <span style="color:var(--accent);">→</span>
+            <span style="background:#10b981;color:white;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:600;">RESOLVED</span>
+            <span style="color:var(--accent);">→</span>
+            <span style="background:#6b7280;color:white;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:600;">CLOSED</span>
+          </div>
+          <p style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:8px;">+ Alternative states: Rejected, Duplicate, Invalid, Reopened, Escalated</p>
+        </div>
+        <div class="card">
+          <h3 style="font-size:14px;margin-bottom:10px;">🔄 Real-Time Events</h3>
+          <div style="font-size:12px;line-height:1.8;color:rgba(255,255,255,0.85);">
+            <div>⚡ New complaint → Control room instantly notified</div>
+            <div>⚡ Assignment → Officer gets push notification + SMS</div>
+            <div>⚡ SLA Warning → Dashboard highlights at 75% time</div>
+            <div>⚡ Resolution → Control room verifies & closes</div>
+            <div>⚡ Closure SMS → Citizen receives confirmation</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="company">LIVEpro Software Solutions</span>
+      <span class="confidential">Confidential | Mela Seva – Project Pitch</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: CONTROL ROOM -->
+  <div class="slide" id="slide-9">
+    <div class="slide-title-bar"></div>
+    <div class="section-header">
+      <div class="tag">Control Room</div>
+      <h2>24×7 Command & Control Dashboard</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="content-area">
+      <div class="grid-2">
+        <div>
+          <img src="images/control-room.jpg" style="width:100%;height:280px;object-fit:cover;border-radius:12px;margin-bottom:12px;" />
+          <p style="font-size:12px;color:var(--gray-600);">
+            Purpose-built control room interface optimized for large screens with real-time data feeds, 
+            GIS map, and instant complaint assignment capabilities.
+          </p>
+        </div>
+        <div>
+          <h3 style="font-size:16px;font-weight:700;color:var(--primary-dark);margin-bottom:12px;">Dashboard Components</h3>
+          <div style="font-size:13px;color:var(--gray-700);line-height:1.7;">
+            <div class="feature-item" style="margin-bottom:8px;">
+              <div class="feature-bullet" style="width:22px;height:22px;min-width:22px;font-size:11px;background:var(--danger);">!</div>
+              <div><strong>Live Complaint Feed</strong> — incoming complaints appear instantly</div>
+            </div>
+            <div class="feature-item" style="margin-bottom:8px;">
+              <div class="feature-bullet" style="width:22px;height:22px;min-width:22px;font-size:11px;background:var(--primary-light);">🗺</div>
+              <div><strong>GIS Map</strong> — all complaints color-coded by status on map</div>
+            </div>
+            <div class="feature-item" style="margin-bottom:8px;">
+              <div class="feature-bullet" style="width:22px;height:22px;min-width:22px;font-size:11px;background:var(--warning);">📊</div>
+              <div><strong>KPI Cards</strong> — total, new, assigned, overdue, resolved counts</div>
+            </div>
+            <div class="feature-item" style="margin-bottom:8px;">
+              <div class="feature-bullet" style="width:22px;height:22px;min-width:22px;font-size:11px;background:var(--success);">⏱</div>
+              <div><strong>SLA Monitor</strong> — overdue complaints highlighted prominently</div>
+            </div>
+            <div class="feature-item" style="margin-bottom:8px;">
+              <div class="feature-bullet" style="width:22px;height:22px;min-width:22px;font-size:11px;background:var(--accent);">📈</div>
+              <div><strong>Trend Charts</strong> — hourly/daily complaint volume visualization</div>
+            </div>
+            <div class="feature-item" style="margin-bottom:0;">
+              <div class="feature-bullet" style="width:22px;height:22px;min-width:22px;font-size:11px;background:var(--primary);">👆</div>
+              <div><strong>Quick Assign</strong> — one-click complaint assignment to officer</div>
+            </div>
+          </div>
+          <div style="margin-top:12px;background:var(--gray-50);border-radius:8px;padding:12px;border:1px solid var(--gray-200);">
+            <div style="font-size:12px;font-weight:600;color:var(--primary-dark);margin-bottom:6px;">Sample KPI Snapshot</div>
+            <div style="display:flex;gap:8px;">
+              <div style="flex:1;text-align:center;background:#dbeafe;border-radius:6px;padding:6px;">
+                <div style="font-size:18px;font-weight:800;color:var(--primary);">4,250</div>
+                <div style="font-size:9px;color:var(--gray-600);">Total</div>
+              </div>
+              <div style="flex:1;text-align:center;background:#fef3c7;border-radius:6px;padding:6px;">
+                <div style="font-size:18px;font-weight:800;color:var(--warning);">127</div>
+                <div style="font-size:9px;color:var(--gray-600);">New</div>
+              </div>
+              <div style="flex:1;text-align:center;background:#fee2e2;border-radius:6px;padding:6px;">
+                <div style="font-size:18px;font-weight:800;color:var(--danger);">18</div>
+                <div style="font-size:9px;color:var(--gray-600);">Overdue</div>
+              </div>
+              <div style="flex:1;text-align:center;background:#d1fae5;border-radius:6px;padding:6px;">
+                <div style="font-size:18px;font-weight:800;color:var(--success);">89%</div>
+                <div style="font-size:9px;color:var(--gray-600);">Resolved</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="company">LIVEpro Software Solutions</span>
+      <span class="confidential">Confidential | Mela Seva – Project Pitch</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 10: MOBILE APP -->
+  <div class="slide" id="slide-10">
+    <div class="slide-title-bar"></div>
+    <div class="section-header">
+      <div class="tag">Mobile Applications</div>
+      <h2>Field-Ready Mobile Apps for Every Role</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="content-area">
+      <div class="grid-2">
+        <div>
+          <img src="images/mobile-app.jpg" style="width:100%;height:240px;object-fit:cover;border-radius:12px;margin-bottom:16px;" />
+          <div style="display:flex;gap:8px;">
+            <div style="flex:1;background:#dbeafe;border-radius:8px;padding:10px;text-align:center;">
+              <div style="font-size:16px;">📱</div>
+              <div style="font-size:11px;font-weight:600;">Android</div>
+            </div>
+            <div style="flex:1;background:#fce7f3;border-radius:8px;padding:10px;text-align:center;">
+              <div style="font-size:16px;">🍎</div>
+              <div style="font-size:11px;font-weight:600;">iOS</div>
+            </div>
+            <div style="flex:1;background:#d1fae5;border-radius:8px;padding:10px;text-align:center;">
+              <div style="font-size:16px;">📶</div>
+              <div style="font-size:11px;font-weight:600;">Offline</div>
+            </div>
+            <div style="flex:1;background:#fef3c7;border-radius:8px;padding:10px;text-align:center;">
+              <div style="font-size:16px;">🔔</div>
+              <div style="font-size:11px;font-weight:600;">Push Alerts</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="grid-2" style="gap:12px;">
+            <div class="card" style="padding:16px;">
+              <h3 style="font-size:13px;color:var(--primary-light);">👷 Field Officer App</h3>
+              <div style="font-size:11px;color:var(--gray-600);line-height:1.7;margin-top:6px;">
+                <div>• View assigned complaints</div>
+                <div>• Navigate to location (GPS)</div>
+                <div>• Update status in real-time</div>
+                <div>• Upload resolution photos</div>
+                <div>• Call complainant directly</div>
+                <div>• Offline mode with auto-sync</div>
+              </div>
+            </div>
+            <div class="card" style="padding:16px;">
+              <h3 style="font-size:13px;color:var(--accent);">📐 Surveyor App</h3>
+              <div style="font-size:11px;color:var(--gray-600);line-height:1.7;margin-top:6px;">
+                <div>• Add new assets with GPS</div>
+                <div>• Capture asset photographs</div>
+                <div>• Assign QR codes in field</div>
+                <div>• Verify existing assets</div>
+                <div>• Bulk survey mode</div>
+                <div>• Work offline in low-network areas</div>
+              </div>
+            </div>
+            <div class="card" style="padding:16px;">
+              <h3 style="font-size:13px;color:var(--success);">🧑 Public (No App Needed)</h3>
+              <div style="font-size:11px;color:var(--gray-600);line-height:1.7;margin-top:6px;">
+                <div>• Scan any QR → browser opens</div>
+                <div>• Register complaint instantly</div>
+                <div>• Track complaint status</div>
+                <div>• Find nearby facilities</div>
+                <div>• Get navigation directions</div>
+                <div>• Submit feedback</div>
+              </div>
+            </div>
+            <div class="card" style="padding:16px;">
+              <h3 style="font-size:13px;color:var(--primary);">🖥️ Web Admin Panel</h3>
+              <div style="font-size:11px;color:var(--gray-600);line-height:1.7;margin-top:6px;">
+                <div>• Complete admin dashboard</div>
+                <div>• User & role management</div>
+                <div>• Asset inventory & QR codes</div>
+                <div>• Reports & analytics</div>
+                <div>• System configuration</div>
+                <div>• Works on any browser</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="company">LIVEpro Software Solutions</span>
+      <span class="confidential">Confidential | Mela Seva – Project Pitch</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 11: SMART NAVIGATION -->
+  <div class="slide" id="slide-11">
+    <div class="slide-title-bar"></div>
+    <div class="section-header">
+      <div class="tag">Public Service</div>
+      <h2>Smart Navigation — Help Citizens Find Everything</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="content-area">
+      <div class="grid-2">
+        <div>
+          <p style="font-size:14px;color:var(--gray-700);line-height:1.6;margin-bottom:16px;">
+            Every citizen — whether they scanned a QR or visited the website — can instantly find 
+            essential facilities around them with real-time distance and navigation.
+          </p>
+          <div style="background:var(--gray-50);border-radius:12px;padding:16px;border:1px solid var(--gray-200);margin-bottom:16px;">
+            <div style="font-size:13px;font-weight:700;color:var(--primary-dark);margin-bottom:8px;">📍 Nearby Facilities (Example)</div>
+            <div style="font-size:12px;line-height:2;">
+              <div>🏥 Hospital — <strong>500m</strong> → Get Directions</div>
+              <div>👮 Police Post — <strong>700m</strong> → Get Directions</div>
+              <div>🚻 Toilet — <strong>150m</strong> → Get Directions</div>
+              <div>🅿️ Parking — <strong>300m</strong> → Get Directions</div>
+              <div>💧 Water Point — <strong>100m</strong> → Get Directions</div>
+              <div>🏠 Shelter — <strong>450m</strong> → Get Directions</div>
+            </div>
+          </div>
+          <div style="font-size:12px;color:var(--gray-600);">
+            <strong>Facility Types Supported:</strong> Hospital, Police Station/Post, Toilet, Parking, 
+            Ghat, Shelter, Fire Station, Drinking Water, Help Centre, Control Room, Medical Centre
+          </div>
+        </div>
+        <div>
+          <div class="card" style="padding:0;overflow:hidden;">
+            <div style="background:var(--primary);color:white;padding:12px 16px;">
+              <div style="font-size:14px;font-weight:600;">🗺️ Interactive Smart Map</div>
+            </div>
+            <div style="padding:16px;">
+              <div style="font-size:12px;color:var(--gray-700);line-height:1.8;">
+                <div>✅ <strong>Current location</strong> auto-detected via GPS</div>
+                <div>✅ <strong>Event boundary</strong> displayed on map</div>
+                <div>✅ <strong>Category filters</strong> — toggle facility types</div>
+                <div>✅ <strong>Distance calculation</strong> — shows meters/km</div>
+                <div>✅ <strong>Search</strong> — find specific facility by name</div>
+                <div>✅ <strong>Facility details</strong> — contact, timings, capacity</div>
+                <div>✅ <strong>One-tap navigation</strong> — opens Google/Apple Maps</div>
+                <div>✅ <strong>Emergency shortcuts</strong> — hospital, police, fire</div>
+              </div>
+              <div style="margin-top:12px;background:#dbeafe;border-radius:8px;padding:12px;">
+                <div style="font-size:12px;font-weight:600;color:var(--primary);margin-bottom:4px;">💡 No App Installation Required</div>
+                <div style="font-size:11px;color:var(--gray-600);">
+                  Citizens simply scan QR → map opens in browser. Works on any smartphone.
+                  No download, no registration, no barrier.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="company">LIVEpro Software Solutions</span>
+      <span class="confidential">Confidential | Mela Seva – Project Pitch</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 12: SYSTEM ARCHITECTURE -->
+  <div class="slide" id="slide-12">
+    <div class="slide-title-bar"></div>
+    <div class="section-header">
+      <div class="tag">Architecture</div>
+      <h2>Enterprise-Grade System Architecture</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="content-area">
+      <div class="grid-2">
+        <div>
+          <!-- Architecture Diagram -->
+          <div style="background:var(--gray-50);border-radius:12px;padding:20px;border:1px solid var(--gray-200);">
+            <div style="text-align:center;margin-bottom:12px;">
+              <div style="display:inline-block;background:var(--accent);color:white;padding:6px 16px;border-radius:8px;font-size:12px;font-weight:600;">PUBLIC USERS</div>
+            </div>
+            <div style="text-align:center;font-size:18px;color:var(--gray-400);">↓</div>
+            <div style="text-align:center;margin-bottom:8px;">
+              <div style="display:inline-block;background:var(--primary-light);color:white;padding:6px 16px;border-radius:8px;font-size:12px;">QR Scan / Web Browser / Mobile App</div>
+            </div>
+            <div style="text-align:center;font-size:18px;color:var(--gray-400);">↓</div>
+            <div style="text-align:center;margin-bottom:8px;">
+              <div style="display:inline-flex;gap:8px;">
+                <span style="background:#dbeafe;padding:4px 12px;border-radius:6px;font-size:11px;">React Web App</span>
+                <span style="background:#fce7f3;padding:4px 12px;border-radius:6px;font-size:11px;">React Native Mobile</span>
+              </div>
+            </div>
+            <div style="text-align:center;font-size:18px;color:var(--gray-400);">↓</div>
+            <div style="text-align:center;margin-bottom:8px;">
+              <div style="display:inline-block;background:var(--primary);color:white;padding:8px 20px;border-radius:8px;font-size:13px;font-weight:600;">Node.js + Express API</div>
+            </div>
+            <div style="display:flex;justify-content:center;gap:20px;margin-top:8px;">
+              <div style="text-align:center;">
+                <div style="font-size:18px;">↓</div>
+                <div style="background:#10b981;color:white;padding:4px 12px;border-radius:6px;font-size:11px;">MongoDB</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-size:18px;">↓</div>
+                <div style="background:#8b5cf6;color:white;padding:4px 12px;border-radius:6px;font-size:11px;">Socket.IO</div>
+              </div>
+              <div style="text-align:center;">
+                <div style="font-size:18px;">↓</div>
+                <div style="background:#f59e0b;color:white;padding:4px 12px;border-radius:6px;font-size:11px;">File Storage</div>
+              </div>
+            </div>
+            <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--gray-600);">
+              External: Maps API | SMS Gateway | Push Notifications
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3 style="font-size:15px;font-weight:700;color:var(--primary-dark);margin-bottom:12px;">Technology Stack</h3>
+          <div style="margin-bottom:12px;">
+            <div style="font-size:11px;font-weight:600;color:var(--gray-600);margin-bottom:4px;">WEB FRONTEND</div>
+            <div>
+              <span class="tech-badge highlight">React.js</span>
+              <span class="tech-badge highlight">Vite</span>
+              <span class="tech-badge">TypeScript</span>
+              <span class="tech-badge">Tailwind CSS</span>
+              <span class="tech-badge">Leaflet + OSM</span>
+              <span class="tech-badge">Recharts</span>
+              <span class="tech-badge">Socket.IO Client</span>
+            </div>
+          </div>
+          <div style="margin-bottom:12px;">
+            <div style="font-size:11px;font-weight:600;color:var(--gray-600);margin-bottom:4px;">MOBILE APP</div>
+            <div>
+              <span class="tech-badge highlight">React Native</span>
+              <span class="tech-badge highlight">Expo</span>
+              <span class="tech-badge">Expo Camera</span>
+              <span class="tech-badge">GPS/Location</span>
+              <span class="tech-badge">Push Notifications</span>
+              <span class="tech-badge">Offline Cache</span>
+            </div>
+          </div>
+          <div style="margin-bottom:12px;">
+            <div style="font-size:11px;font-weight:600;color:var(--gray-600);margin-bottom:4px;">BACKEND</div>
+            <div>
+              <span class="tech-badge highlight">Node.js</span>
+              <span class="tech-badge highlight">Express.js</span>
+              <span class="tech-badge">JWT Auth</span>
+              <span class="tech-badge">Socket.IO</span>
+              <span class="tech-badge">Multer</span>
+              <span class="tech-badge">QR Generator</span>
+              <span class="tech-badge">Winston Logger</span>
+            </div>
+          </div>
+          <div style="margin-bottom:12px;">
+            <div style="font-size:11px;font-weight:600;color:var(--gray-600);margin-bottom:4px;">DATABASE</div>
+            <div>
+              <span class="tech-badge highlight">MongoDB</span>
+              <span class="tech-badge">Mongoose ODM</span>
+              <span class="tech-badge">2dsphere Geo Index</span>
+              <span class="tech-badge">Aggregation Pipeline</span>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:600;color:var(--gray-600);margin-bottom:4px;">SECURITY</div>
+            <div>
+              <span class="tech-badge">Helmet.js</span>
+              <span class="tech-badge">Rate Limiting</span>
+              <span class="tech-badge">CORS</span>
+              <span class="tech-badge">Input Validation</span>
+              <span class="tech-badge">bcrypt</span>
+              <span class="tech-badge">RBAC</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="company">LIVEpro Software Solutions</span>
+      <span class="confidential">Confidential | Mela Seva – Project Pitch</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 13: SECURITY -->
+  <div class="slide" id="slide-13">
+    <div class="slide-title-bar"></div>
+    <div class="section-header">
+      <div class="tag">Security & Compliance</div>
+      <h2>Enterprise-Grade Security & Data Protection</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="content-area">
+      <div class="grid-3">
+        <div class="card" style="border-top:3px solid var(--primary);">
+          <h3 style="font-size:14px;">🔐 Authentication</h3>
+          <div style="font-size:12px;color:var(--gray-600);line-height:1.8;margin-top:8px;">
+            <div>• JWT token-based auth</div>
+            <div>• Refresh token rotation</div>
+            <div>• Password hashing (bcrypt)</div>
+            <div>• Session management</div>
+            <div>• Auto-logout on inactivity</div>
+          </div>
+        </div>
+        <div class="card" style="border-top:3px solid var(--accent);">
+          <h3 style="font-size:14px;">🛡️ Access Control</h3>
+          <div style="font-size:12px;color:var(--gray-600);line-height:1.8;margin-top:8px;">
+            <div>• 8 distinct user roles</div>
+            <div>• Permission-based API access</div>
+            <div>• Event-level data isolation</div>
+            <div>• Department-level filtering</div>
+            <div>• Role-specific dashboards</div>
+          </div>
+        </div>
+        <div class="card" style="border-top:3px solid var(--success);">
+          <h3 style="font-size:14px;">🔒 Data Protection</h3>
+          <div style="font-size:12px;color:var(--gray-600);line-height:1.8;margin-top:8px;">
+            <div>• HTTPS encryption</div>
+            <div>• Secure HTTP headers</div>
+            <div>• Input sanitization</div>
+            <div>• MongoDB injection prevention</div>
+            <div>• XSS/CSRF protection</div>
+          </div>
+        </div>
+        <div class="card" style="border-top:3px solid #8b5cf6;">
+          <h3 style="font-size:14px;">📝 Audit Trail</h3>
+          <div style="font-size:12px;color:var(--gray-600);line-height:1.8;margin-top:8px;">
+            <div>• Every action logged</div>
+            <div>• User + timestamp + IP</div>
+            <div>• Before/after values stored</div>
+            <div>• Searchable audit logs</div>
+            <div>• Exportable reports</div>
+          </div>
+        </div>
+        <div class="card" style="border-top:3px solid var(--danger);">
+          <h3 style="font-size:14px;">🚫 Abuse Prevention</h3>
+          <div style="font-size:12px;color:var(--gray-600);line-height:1.8;margin-top:8px;">
+            <div>• API rate limiting</div>
+            <div>• CAPTCHA on public forms</div>
+            <div>• Duplicate complaint detection</div>
+            <div>• File upload validation</div>
+            <div>• Size limits enforced</div>
+          </div>
+        </div>
+        <div class="card" style="border-top:3px solid var(--warning);">
+          <h3 style="font-size:14px;">👤 Privacy</h3>
+          <div style="font-size:12px;color:var(--gray-600);line-height:1.8;margin-top:8px;">
+            <div>• No public data exposure</div>
+            <div>• Complainant info protected</div>
+            <div>• Role-specific visibility</div>
+            <div>• Soft deletion (no data loss)</div>
+            <div>• Mobile numbers masked</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="company">LIVEpro Software Solutions</span>
+      <span class="confidential">Confidential | Mela Seva – Project Pitch</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 14: DO'S AND DON'TS -->
+  <div class="slide" id="slide-14">
+    <div class="slide-title-bar"></div>
+    <div class="section-header">
+      <div class="tag">Guidelines</div>
+      <h2>Operational Do's & Don'ts</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="content-area">
+      <div class="dos-donts">
+        <div class="dos-section">
+          <h3>✅ DO's</h3>
+          <div class="do-item">Survey every pole before Mela begins — capture GPS + photo</div>
+          <div class="do-item">Use weatherproof QR stickers rated for 6+ months outdoor</div>
+          <div class="do-item">Apply QR at 5-6 ft height — visible & scannable by public</div>
+          <div class="do-item">Test-scan every QR after application — verify data accuracy</div>
+          <div class="do-item">Assign complaints within 15 minutes of receipt</div>
+          <div class="do-item">Verify resolution photos before closing complaints</div>
+          <div class="do-item">Monitor SLA dashboard continuously — act on overdue items</div>
+          <div class="do-item">Keep backup power for control room — 24×7 uptime essential</div>
+          <div class="do-item">Conduct daily review meeting using MIS reports</div>
+          <div class="do-item">Maintain complete audit trail for accountability</div>
+        </div>
+        <div class="donts-section">
+          <h3>❌ DON'Ts</h3>
+          <div class="dont-item">Don't skip GPS tagging — location is critical for navigation</div>
+          <div class="dont-item">Don't use paper QR codes — they won't survive weather</div>
+          <div class="dont-item">Don't place QR below 3 ft — will be damaged/blocked</div>
+          <div class="dont-item">Don't leave complaints unassigned for more than 30 min</div>
+          <div class="dont-item">Don't close complaints without verifying resolution photo</div>
+          <div class="dont-item">Don't share complainant's personal info publicly</div>
+          <div class="dont-item">Don't allow officers to resolve without reaching location</div>
+          <div class="dont-item">Don't hardcode business rules — use admin configuration</div>
+          <div class="dont-item">Don't delete complaints — maintain complete history</div>
+          <div class="dont-item">Don't ignore SLA breach warnings — escalate immediately</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="company">LIVEpro Software Solutions</span>
+      <span class="confidential">Confidential | Mela Seva – Project Pitch</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 15: IMPLEMENTATION TIMELINE -->
+  <div class="slide" id="slide-15">
+    <div class="slide-title-bar"></div>
+    <div class="section-header">
+      <div class="tag">Timeline</div>
+      <h2>Implementation Roadmap — 12 Weeks</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="content-area">
+      <div class="grid-2">
+        <div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="period">Week 1-2</div>
+              <h4>Phase 1: Foundation & Setup</h4>
+              <p>Infrastructure setup, database design, authentication, user management, event configuration</p>
+            </div>
+            <div class="timeline-item">
+              <div class="period">Week 3-4</div>
+              <h4>Phase 2: Asset & GIS Module</h4>
+              <p>Asset master, GIS survey tools, GPS capture, QR code generation, bulk import</p>
+            </div>
+            <div class="timeline-item">
+              <div class="period">Week 5-6</div>
+              <h4>Phase 3: Complaint Management</h4>
+              <p>Public complaint registration, status workflow, assignment engine, SLA tracking</p>
+            </div>
+            <div class="timeline-item">
+              <div class="period">Week 7-8</div>
+              <h4>Phase 4: Control Room & Dashboard</h4>
+              <p>Real-time dashboard, GIS map, live complaint feed, Socket.IO integration</p>
+            </div>
+            <div class="timeline-item">
+              <div class="period">Week 9-10</div>
+              <h4>Phase 5: Mobile Apps</h4>
+              <p>Field officer app, surveyor app, QR scanning, offline support, push notifications</p>
+            </div>
+            <div class="timeline-item">
+              <div class="period">Week 11-12</div>
+              <h4>Phase 6: Testing & Deployment</h4>
+              <p>UAT, performance testing, training, documentation, production deployment</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card" style="margin-bottom:16px;border-left:4px solid var(--accent);">
+            <h3 style="font-size:14px;color:var(--accent);">⚡ Rapid Delivery Guarantee</h3>
+            <div style="font-size:12px;color:var(--gray-700);line-height:1.6;margin-top:8px;">
+              <div>• <strong>Agile methodology</strong> — 2-week sprint cycles with demos</div>
+              <div>• <strong>Dedicated team</strong> — 6+ developers + 1 project manager</div>
+              <div>• <strong>Daily standups</strong> — progress visibility to stakeholders</div>
+              <div>• <strong>Bi-weekly demos</strong> — see working features every 2 weeks</div>
+              <div>• <strong>Nagpur-based team</strong> — on-site support when needed</div>
+            </div>
+          </div>
+          <div class="card" style="margin-bottom:16px;border-left:4px solid var(--success);">
+            <h3 style="font-size:14px;color:var(--success);">📦 Deliverables</h3>
+            <div style="font-size:12px;color:var(--gray-700);line-height:1.6;margin-top:8px;">
+              <div>✅ Web Application (Admin + Public)</div>
+              <div>✅ Android App (Play Store ready)</div>
+              <div>✅ iOS App (App Store ready)</div>
+              <div>✅ Backend API with documentation</div>
+              <div>✅ QR printing system + label templates</div>
+              <div>✅ User training + operation manual</div>
+              <div>✅ Source code + deployment scripts</div>
+              <div>✅ 3 months post-launch support</div>
+            </div>
+          </div>
+          <div class="card" style="border-left:4px solid var(--primary);">
+            <h3 style="font-size:14px;color:var(--primary);">🔄 Post-Event Reusability</h3>
+            <div style="font-size:12px;color:var(--gray-700);line-height:1.6;margin-top:8px;">
+              Same platform ready for next Mela, Kumbh, exhibition — just create new event, configure departments, import assets, and go live!
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="company">LIVEpro Software Solutions</span>
+      <span class="confidential">Confidential | Mela Seva – Project Pitch</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 16: MULTI-EVENT SCALABILITY -->
+  <div class="slide" id="slide-16">
+    <div class="slide-title-bar"></div>
+    <div class="section-header">
+      <div class="tag">Scalability</div>
+      <h2>One Platform — Unlimited Events</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="content-area">
+      <p style="font-size:14px;color:var(--gray-600);margin-bottom:20px;line-height:1.5;">
+        The Mela Seva platform is <strong>not a one-time solution</strong> — it's a <strong>reusable digital infrastructure</strong> 
+        that can serve any large public event across Maharashtra and India.
+      </p>
+      <div class="grid-4" style="margin-bottom:20px;">
+        <div style="text-align:center;background:linear-gradient(135deg,#1a365d,#2563eb);color:white;border-radius:12px;padding:20px;">
+          <div style="font-size:28px;margin-bottom:6px;">🕌</div>
+          <div style="font-size:13px;font-weight:700;">Kumbh Mela</div>
+          <div style="font-size:10px;opacity:0.8;margin-top:4px;">Millions of devotees</div>
+        </div>
+        <div style="text-align:center;background:linear-gradient(135deg,#7c3aed,#a855f7);color:white;border-radius:12px;padding:20px;">
+          <div style="font-size:28px;margin-bottom:6px;">🎪</div>
+          <div style="font-size:13px;font-weight:700;">Trade Fairs</div>
+          <div style="font-size:10px;opacity:0.8;margin-top:4px;">Exhibitions & expos</div>
+        </div>
+        <div style="text-align:center;background:linear-gradient(135deg,#ea580c,#f97316);color:white;border-radius:12px;padding:20px;">
+          <div style="font-size:28px;margin-bottom:6px;">🎆</div>
+          <div style="font-size:13px;font-weight:700;">Religious Festivals</div>
+          <div style="font-size:10px;opacity:0.8;margin-top:4px;">Ganeshotsav, Navratri</div>
+        </div>
+        <div style="text-align:center;background:linear-gradient(135deg,#059669,#10b981);color:white;border-radius:12px;padding:20px;">
+          <div style="font-size:28px;margin-bottom:6px;">🏟️</div>
+          <div style="font-size:13px;font-weight:700;">Public Events</div>
+          <div style="font-size:10px;opacity:0.8;margin-top:4px;">Sports, cultural, political</div>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <h3 style="font-size:14px;">🔄 How Reusability Works</h3>
+          <div style="font-size:12px;color:var(--gray-700);line-height:1.8;margin-top:8px;">
+            <div><strong>Step 1:</strong> Create new Event (name, dates, location, boundary)</div>
+            <div><strong>Step 2:</strong> Configure departments for this event</div>
+            <div><strong>Step 3:</strong> Define zones, sectors, roads</div>
+            <div><strong>Step 4:</strong> GIS survey — map all assets</div>
+            <div><strong>Step 5:</strong> Generate & apply QR codes</div>
+            <div><strong>Step 6:</strong> Add facilities (hospitals, police, toilets)</div>
+            <div><strong>Step 7:</strong> Go live! 🚀</div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="font-size:14px;">💰 ROI for Government</h3>
+          <div style="font-size:12px;color:var(--gray-700);line-height:1.8;margin-top:8px;">
+            <div>📌 <strong>One-time development cost</strong> — reused across years</div>
+            <div>📌 <strong>Reduced manpower</strong> — digital tracking vs manual patrols</div>
+            <div>📌 <strong>Faster resolution</strong> — SLA-driven accountability</div>
+            <div>📌 <strong>Citizen satisfaction</strong> — instant complaint registration</div>
+            <div>📌 <strong>Data-driven decisions</strong> — MIS reports for planning</div>
+            <div>📌 <strong>Political goodwill</strong> — visible transparency & efficiency</div>
+            <div>📌 <strong>Scalable to any city</strong> — Nagpur → Mumbai → Pune → All</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="company">LIVEpro Software Solutions</span>
+      <span class="confidential">Confidential | Mela Seva – Project Pitch</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 17: WHY LIVEPRO -->
+  <div class="slide" id="slide-17">
+    <div class="slide-title-bar"></div>
+    <div class="section-header">
+      <div class="tag">Why Us</div>
+      <h2>Why LIVEpro Software Solutions?</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="content-area">
+      <div class="grid-2">
+        <div>
+          <img src="images/team-work.jpg" style="width:100%;height:200px;object-fit:cover;border-radius:12px;margin-bottom:16px;" />
+          <div class="grid-2" style="gap:12px;">
+            <div class="stat-card">
+              <div class="stat-number">10+</div>
+              <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-card" style="background:linear-gradient(135deg,var(--accent),#ea580c);">
+              <div class="stat-number">50+</div>
+              <div class="stat-label">Projects Delivered</div>
+            </div>
+            <div class="stat-card" style="background:linear-gradient(135deg,var(--success),#059669);">
+              <div class="stat-number">100%</div>
+              <div class="stat-label">On-Time Delivery</div>
+            </div>
+            <div class="stat-card" style="background:linear-gradient(135deg,#7c3aed,#a855f7);">
+              <div class="stat-number">24×7</div>
+              <div class="stat-label">Support Available</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="feature-item">
+            <div class="feature-bullet" style="background:var(--accent);">🏠</div>
+            <div class="feature-text">
+              <h4>Nagpur-Based Company</h4>
+              <p>Local team = on-site support, quick turnaround, understanding of local needs</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-bullet" style="background:var(--accent);">💡</div>
+            <div class="feature-text">
+              <h4>Domain Expertise</h4>
+              <p>Experience in government projects, smart city solutions, GIS applications</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-bullet" style="background:var(--accent);">🔧</div>
+            <div class="feature-text">
+              <h4>Full-Stack Capability</h4>
+              <p>Web, mobile, backend, GIS, real-time — all under one roof</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-bullet" style="background:var(--accent);">📱</div>
+            <div class="feature-text">
+              <h4>Mobile-First Approach</h4>
+              <p>Field operations designed for low-connectivity, rugged conditions</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-bullet" style="background:var(--accent);">🤝</div>
+            <div class="feature-text">
+              <h4>End-to-End Ownership</h4>
+              <p>From requirement analysis → development → deployment → training → support</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-bullet" style="background:var(--accent);">📊</div>
+            <div class="feature-text">
+              <h4>Proven Technology</h4>
+              <p>Modern, scalable stack used by top enterprises — future-proof investment</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="company">LIVEpro Software Solutions</span>
+      <span class="confidential">Confidential | Mela Seva – Project Pitch</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 18: COMPARISON -->
+  <div class="slide" id="slide-18">
+    <div class="slide-title-bar"></div>
+    <div class="section-header">
+      <div class="tag">Comparison</div>
+      <h2>Before vs After — Digital Transformation Impact</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="content-area">
+      <table class="data-table" style="font-size:13px;">
+        <thead>
+          <tr>
+            <th style="width:30%;">Aspect</th>
+            <th style="width:35%;background:var(--danger);">❌ Current (Manual)</th>
+            <th style="width:35%;background:var(--success);">✅ With Mela Seva</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Asset Tracking</strong></td>
+            <td>Paper registers, no GPS, no photographs</td>
+            <td>GPS-tagged, photographed, searchable on map</td>
+          </tr>
+          <tr>
+            <td><strong>Complaint Registration</strong></td>
+            <td>Phone calls, verbal, written applications — no tracking</td>
+            <td>QR scan → 30 seconds → instant complaint number</td>
+          </tr>
+          <tr>
+            <td><strong>Assignment</strong></td>
+            <td>Manual dispatch, phone calls, delays</td>
+            <td>Instant digital assignment with push notification</td>
+          </tr>
+          <tr>
+            <td><strong>Resolution Tracking</strong></td>
+            <td>No visibility, follow-ups needed</td>
+            <td>Real-time status, SLA timer, auto-escalation</td>
+          </tr>
+          <tr>
+            <td><strong>Citizen Information</strong></td>
+            <td>No way to find hospitals, police, toilets</td>
+            <td>Smart map with all facilities + navigation</td>
+          </tr>
+          <tr>
+            <td><strong>Reporting</strong></td>
+            <td>Manual compilation, days to prepare</td>
+            <td>One-click reports, real-time dashboards</td>
+          </tr>
+          <tr>
+            <td><strong>Accountability</strong></td>
+            <td>No audit trail, blame games</td>
+            <td>Complete audit log, officer-wise performance</td>
+          </tr>
+          <tr>
+            <td><strong>Reusability</strong></td>
+            <td>Start from scratch every event</td>
+            <td>Same platform — create new event, go live in days</td>
+          </tr>
+          <tr>
+            <td><strong>Average Resolution</strong></td>
+            <td>24-48 hours (often more)</td>
+            <td>1-2 hours with SLA enforcement</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-footer">
+      <span class="company">LIVEpro Software Solutions</span>
+      <span class="confidential">Confidential | Mela Seva – Project Pitch</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 19: INVESTMENT -->
+  <div class="slide" id="slide-19">
+    <div class="slide-title-bar"></div>
+    <div class="section-header">
+      <div class="tag">Investment</div>
+      <h2>Commercial Proposal Overview</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="content-area">
+      <div class="grid-2" style="margin-bottom:20px;">
+        <div class="card" style="border-top:3px solid var(--primary);">
+          <h3 style="font-size:16px;margin-bottom:12px;">📦 What's Included</h3>
+          <div style="font-size:13px;color:var(--gray-700);line-height:1.8;">
+            <div>✅ Complete Web Application (Admin + Public Portal)</div>
+            <div>✅ Android & iOS Mobile Applications</div>
+            <div>✅ Backend API with Database</div>
+            <div>✅ GIS Map Integration (OpenStreetMap)</div>
+            <div>✅ QR Code Generation & Printing System</div>
+            <div>✅ Real-time Dashboard (Socket.IO)</div>
+            <div>✅ SMS Notification Integration</div>
+            <div>✅ Multilingual Support (EN/HI/MR)</div>
+            <div>✅ User Training & Documentation</div>
+            <div>✅ Source Code Ownership</div>
+            <div>✅ 3 Months Post-Deployment Support</div>
+          </div>
+        </div>
+        <div class="card" style="border-top:3px solid var(--accent);">
+          <h3 style="font-size:16px;margin-bottom:12px;">💼 Engagement Model</h3>
+          <div style="font-size:13px;color:var(--gray-700);line-height:1.8;">
+            <div>📌 <strong>Fixed-price project</strong> — no surprise costs</div>
+            <div>📌 <strong>Milestone-based payments</strong> — pay as you see progress</div>
+            <div>📌 <strong>Dedicated project manager</strong> — single point of contact</div>
+            <div>📌 <strong>Bi-weekly demos</strong> — stakeholder visibility</div>
+            <div>📌 <strong>Agile delivery</strong> — flexible to requirement changes</div>
+            <div>📌 <strong>AMC available</strong> — annual maintenance after support period</div>
+            <div>📌 <strong>Server hosting guidance</strong> — cloud or on-premise</div>
+          </div>
+          <div style="margin-top:16px;background:var(--gray-50);border-radius:8px;padding:12px;text-align:center;">
+            <div style="font-size:12px;color:var(--gray-600);">Detailed commercial proposal shared separately</div>
+            <div style="font-size:11px;color:var(--gray-500);margin-top:4px;">upon expression of interest</div>
+          </div>
+        </div>
+      </div>
+      <div class="grid-4">
+        <div style="text-align:center;background:var(--gray-50);border-radius:10px;padding:16px;border:1px solid var(--gray-200);">
+          <div style="font-size:24px;margin-bottom:4px;">📋</div>
+          <div style="font-size:12px;font-weight:600;">Requirement Freeze</div>
+          <div style="font-size:10px;color:var(--gray-500);">Week 1</div>
+        </div>
+        <div style="text-align:center;background:var(--gray-50);border-radius:10px;padding:16px;border:1px solid var(--gray-200);">
+          <div style="font-size:24px;margin-bottom:4px;">💻</div>
+          <div style="font-size:12px;font-weight:600;">Development</div>
+          <div style="font-size:10px;color:var(--gray-500);">Week 2-10</div>
+        </div>
+        <div style="text-align:center;background:var(--gray-50);border-radius:10px;padding:16px;border:1px solid var(--gray-200);">
+          <div style="font-size:24px;margin-bottom:4px;">🧪</div>
+          <div style="font-size:12px;font-weight:600;">Testing & UAT</div>
+          <div style="font-size:10px;color:var(--gray-500);">Week 11</div>
+        </div>
+        <div style="text-align:center;background:var(--gray-50);border-radius:10px;padding:16px;border:1px solid var(--gray-200);">
+          <div style="font-size:24px;margin-bottom:4px;">🚀</div>
+          <div style="font-size:12px;font-weight:600;">Go Live</div>
+          <div style="font-size:10px;color:var(--gray-500);">Week 12</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span class="company">LIVEpro Software Solutions</span>
+      <span class="confidential">Confidential | Mela Seva – Project Pitch</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 20: THANK YOU -->
+  <div class="slide slide-cover" id="slide-20">
+    <div class="logo-area">
+      <div class="logo-icon">L</div>
+      <div>
+        <div class="company-name">LIVEpro Software Solutions</div>
+        <div class="company-location">Raghuji Nagar, Nagpur – 440024</div>
+      </div>
+    </div>
+    <h1 style="font-size:48px;">Thank You</h1>
+    <div class="accent-line"></div>
+    <div class="subtitle" style="font-size:18px;">
+      We look forward to partnering with you to build a <strong>smarter, safer, more connected</strong> Mela experience 
+      for lakhs of citizens.
+    </div>
+    <div style="background:rgba(255,255,255,0.1);border-radius:12px;padding:24px;margin-top:20px;max-width:500px;">
+      <div style="font-size:16px;font-weight:600;margin-bottom:12px;">📞 Let's Connect</div>
+      <div style="font-size:14px;line-height:2;opacity:0.9;">
+        <div>🏢 LIVEpro Software Solutions</div>
+        <div>📍 Raghuji Nagar, Nagpur – 440024</div>
+        <div>📧 info@liveprosoft.com</div>
+        <div>🌐 www.liveprosoft.com</div>
+      </div>
+    </div>
+    <div style="position:absolute;bottom:50px;left:0;right:0;text-align:center;font-size:12px;opacity:0.5;">
+      © 2026 LIVEpro Software Solutions. All Rights Reserved. | This document is confidential and intended for the named recipient only.
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const total = slides.length;
+    document.getElementById('total').textContent = total;
+
+    function showSlide(n) {
+      slides.forEach((s, i) => {
+        s.style.display = (i === n) ? 'block' : 'none';
+      });
+      document.getElementById('current').textContent = n + 1;
+      currentSlide = n;
+    }
+
+    function nextSlide() {
+      if (currentSlide < total - 1) showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) showSlide(currentSlide - 1);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+    showSlide(0);
+  </script>
+</body>
+</html>
